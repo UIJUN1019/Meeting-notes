@@ -637,7 +637,7 @@ function renderMeetingCards() {
     })
     .join('');
 
-  const summary = keyword ? `<p class="muted">검색 결과 ${meetings.length}건</p>` : '';
+  const summary = keyword ? `<p class="result-count">검색 결과 ${meetings.length}건</p>` : '';
   return `${summary}<div class="meeting-list">${cards}</div>`;
 }
 
@@ -682,8 +682,8 @@ function renderMeetingForm(meeting) {
         </div>
       </div>
       <div class="form-actions">
-        <a href="${cancelHref}" class="btn">취소</a>
-        <button type="submit" class="btn btn-primary">${isEdit ? '수정 저장' : '회의 등록'}</button>
+        <a href="${cancelHref}" class="btn btn-lg">취소</a>
+        <button type="submit" class="btn btn-primary btn-lg">${isEdit ? '수정 저장' : '회의 등록'}</button>
       </div>
     </form>
   `;
@@ -701,7 +701,7 @@ function renderMeetingDetail(m) {
   return `
     <div class="page-head">
       <div>
-        <p class="muted" style="margin:0"><a href="#/meetings">← 회의 목록</a></p>
+        <a class="back-link" href="#/meetings">← 회의 목록</a>
         <h1 class="page-title">${escapeHtml(m.title)}</h1>
         <p class="detail-meta">${meta}</p>
       </div>
@@ -722,7 +722,7 @@ function renderMeetingDetail(m) {
     ${renderActionSection(m)}
 
     <div class="detail-footer">
-      <a href="#/meeting/${idEnc}/report" class="btn btn-primary">📄 보고서 보기</a>
+      <a href="#/meeting/${idEnc}/report" class="btn btn-primary btn-lg">회의 결과 보고서 보기</a>
     </div>
   `;
 }
@@ -777,8 +777,8 @@ function renderDecisionSection(m) {
   return `
     <section class="card" aria-labelledby="decision-title">
       <div class="section-head">
-        <h2 class="section-title" id="decision-title">■ 결정사항 <span class="muted">(${m.decisions.length})</span></h2>
-        ${ui.addingDecision ? '' : '<button type="button" class="btn btn-sm" data-action="show-decision-form">+ 추가</button>'}
+        <h2 class="section-title" id="decision-title">결정사항<span class="section-count">${m.decisions.length}</span></h2>
+        ${ui.addingDecision ? '' : '<button type="button" class="btn btn-sm btn-light" data-action="show-decision-form">+ 추가</button>'}
       </div>
       ${list}
       ${addForm}
@@ -837,8 +837,8 @@ function renderActionSection(m) {
   return `
     <section class="card" aria-labelledby="action-title">
       <div class="section-head">
-        <h2 class="section-title" id="action-title">■ 조치 과제 <span class="muted">(미완료 ${countOpenActions(m)} / 전체 ${m.actions.length})</span></h2>
-        ${ui.actionForm ? '' : '<button type="button" class="btn btn-sm" data-action="show-action-form">+ 추가</button>'}
+        <h2 class="section-title" id="action-title">조치 과제<span class="section-count">${m.actions.length}</span> <span class="section-count-sub">· 미완료 ${countOpenActions(m)}</span></h2>
+        ${ui.actionForm ? '' : '<button type="button" class="btn btn-sm btn-light" data-action="show-action-form">+ 추가</button>'}
       </div>
       ${table}
       ${ui.actionForm ? renderActionForm(m) : ''}
@@ -855,7 +855,7 @@ function renderActionForm(m) {
 
   return `
     <form class="inline-form" data-form="action" novalidate>
-      <h3 class="section-title" style="margin-bottom:12px">${editing ? '조치 과제 수정' : '새 조치 과제'}</h3>
+      <h3 class="inline-form-title">${editing ? '조치 과제 수정' : '새 조치 과제'}</h3>
       <div class="action-form-grid">
         <div class="field">
           <label for="action-content">과제 내용 <span class="required">*</span></label>
@@ -891,8 +891,8 @@ function renderReport(m) {
     <div class="report-toolbar no-print">
       <a href="#/meeting/${encodeURIComponent(m.id)}" class="btn">← 돌아가기</a>
       <div class="btn-group">
-        <button type="button" class="btn" data-action="copy-report">📋 텍스트 복사</button>
-        <button type="button" class="btn btn-primary" data-action="print">🖨️ 인쇄</button>
+        <button type="button" class="btn" data-action="copy-report">텍스트 복사</button>
+        <button type="button" class="btn btn-primary" data-action="print">인쇄하기</button>
       </div>
     </div>
     ${buildReportHtml(m)}
