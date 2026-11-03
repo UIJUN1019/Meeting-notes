@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="회의 결정사항과 조치 과제(담당자·기한·상태)를 구조화해 기록하고, 회의 결과 보고서 생성과 미완료 과제 추적을 지원하는 웹앱">
+  <title>회의 후속조치 관리 도구</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <!-- 헤더: 앱 이름 + 주요 메뉴 -->
+  <header class="app-header">
+    <a href="#/meetings" class="brand">📋 회의 후속조치 관리</a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="#/meetings" class="nav-link" data-nav="meetings">회의 목록</a>
+      <a href="#/actions" class="nav-link" data-nav="actions">조치 현황</a>
+      <a href="#/meeting/new" class="btn btn-primary">+ 새 회의</a>
+    </nav>
+  </header>
+
+  <!-- 본문: 현재 화면이 렌더링되는 영역 -->
+  <main id="app" tabindex="-1"></main>
+
+  <!-- 푸터: 저장 안내 + 백업 -->
+  <footer class="app-footer">
+    <p class="footer-note">💾 데이터는 이 브라우저에만 저장됩니다. 민감한 정보는 입력하지 마시고, 주기적으로 백업해 주세요.</p>
+    <div class="footer-actions">
+      <button type="button" class="btn btn-sm" data-action="export-json">백업 내보내기</button>
+      <button type="button" class="btn btn-sm" data-action="import-json">가져오기</button>
+      <input type="file" id="import-file" accept="application/json,.json" hidden>
+    </div>
+  </footer>
+
+  <!-- 토스트 메시지 -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
